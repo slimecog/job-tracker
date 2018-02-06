@@ -1,5 +1,13 @@
-All Jobs for <strong><%= @company.name %></strong>
+<% if @category.nil? %>
+  All Jobs for <strong><%= @company.name %></strong>
 
-<% @jobs.each do |job| %>
-  <ul><%= link_to job.title, job_path(job) %> at <%= job.company.name %> </ul>
+  <% @jobs.each do |job| %>
+    <ul><%= link_to job.title, job_path(job) %> at <%= job.company.name %> </ul>
+  <% end %>
+<% elsif @company.nil? %>
+  All Jobs for <strong><%= @category.title %></strong>
+
+  <% @jobs.each do |job| %>
+    <ul><%= link_to job.title, job_path(job) %> at <%= job.category.title %> </ul>
+  <% end %>
 <% end %>
