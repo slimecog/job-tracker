@@ -22,6 +22,14 @@ class CategoriesController < ApplicationController
     redirect_to category_jobs_path(category)
   end
 
+  def destroy
+    category = Category.find(params[:id])
+    category.destroy
+
+    flash[:success] = "#{category.title} was deleted!"
+    redirect_to categories_path
+  end
+
   private
 
   def category_params
