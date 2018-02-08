@@ -1,34 +1,70 @@
-Title: <%= @job.title %>
-<br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>JobTrackr</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 
-Description: <%= @job.description %>
-<br>
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>JobTrackr</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><%= link_to "Home", "/" %></li>
+        <li><%= link_to "Companies", companies_path %></li>
+        <li><%= link_to "Categories", categories_path %></li>
+        <li><%= link_to "Edit This Job", edit_job_path(@job) %></li>
+        <li><%= link_to "Delete This Job", job_path(@job), method: "delete" %></li>
+      </ul><br>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search..">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div>
+    </div>
 
-Level of Interest: <%= @job.level_of_interest %>
-<br>
+    <div class="col-sm-9">
+      <h4><small><%= @job.title.upcase %> FOR <%= @job.company.name.upcase %></small></h4>
+      <hr>
+      Title: <%= @job.title %>
+      <br>
+      Description: <%= @job.description %>
+      <br>
+      Level of Interest: <%= @job.level_of_interest %>
+      <br>
+      City: <%= @job.city %>
+      <br>
+      Company: <%= link_to @job.company.name, company_path(@job.company) %>
+      <br>
+      Comments:<br>
+      <ul>
+        <% @job.comments.reverse.each do |comment| %>
+        <li><%= comment.content %></li>
+        <% end %>
+      </ul>
+      <br>
+      Create a new comment here:<br>
+      <%= form_for [@job, @comment] do |f| %>
+      <%= f.text_area :content %>
+      <%= f.submit  %>
+      <% end %>
+      <br>
+      </div>
+    </div>
+  </div>
+</div>
 
-City: <%= @job.city %>
-<br>
+<footer class="container-fluid">
+  <p>© 2018 Cameron Johnson</p>
+</footer>
 
-Company: <%= link_to @job.company.name, company_path(@job.company) %>
-<br>
-
-Comments:<br>
-<ul>
-  <% @job.comments.reverse.each do |comment| %>
-    <li><%= comment.content %></li>
-  <% end %>
-</ul>
-<br>
-
-Create a new comment here:<br>
-<%= form_for [@job, @comment] do |f| %>
-  <%= f.label :content %>
-  <%= f.text_area :content %>
-
-  <%= f.submit  %>
-<% end %>
-<br>
-
-<%= link_to "Edit This Job", edit_job_path(@job) %>
-<%= link_to "Delete This Job", job_path(@job), method: "delete" %>
+</body>
+</html>
