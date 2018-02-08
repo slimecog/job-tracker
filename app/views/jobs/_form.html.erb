@@ -13,7 +13,6 @@
 
   <%= f.label :category_id %>
   <%= f.collection_select(:category_id, Category.order(:title), :id, :title)%>
-  <%= link_to "Create a new Category", new_category_path %>
 
   <%= f.submit %>
 <% end %>
