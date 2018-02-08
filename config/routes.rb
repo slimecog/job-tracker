@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  root "companies#index"
+  root "welcome#index"
   resources :companies, shallow: true do
-    resources :jobs
+    resources :jobs, shallow: true do
+      resources :comments, only: [:create]
+    end
   end
   resources :categories, shallow: true do
     resources :jobs
