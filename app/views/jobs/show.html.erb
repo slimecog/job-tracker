@@ -13,5 +13,22 @@ City: <%= @job.city %>
 Company: <%= link_to @job.company.name, company_path(@job.company) %>
 <br>
 
+Comments:<br>
+<ul>
+  <% @job.comments.reverse.each do |comment| %>
+    <li><%= comment.content %></li>
+  <% end %>
+</ul>
+<br>
+
+Create a new comment here:<br>
+<%= form_for [@job, @comment] do |f| %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <%= f.submit  %>
+<% end %>
+<br>
+
 <%= link_to "Edit This Job", edit_job_path(@job) %>
 <%= link_to "Delete This Job", job_path(@job), method: "delete" %>
