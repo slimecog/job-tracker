@@ -48,7 +48,7 @@ describe Job do
     it "belongs to a category" do
       category = Category.create!(title: "cat1")
       job = Job.new(title: "Software", level_of_interest: 70, description: "Wahooo", category_id: category.id)
-      expect(job).to respond_to(:company)
+      expect(job).to respond_to(:category)
     end
   end
 end
